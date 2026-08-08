@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exame de Consciência</title>
     
+    <!-- Ícone central (Mãos em Oração) como Favicon da página -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23991b1b' d='M273.5 1.2c-7.4-1.6-14.8-1.6-22.1 0C215.1 6.5 198.8 24.8 195.9 48.7L186.2 131c-3.1 26.5-22.3 48.7-48.4 55.4l-15.6 4c-53 13.6-86.4 67.5-74.9 121.2l9.8 45.9c3 14 10.9 26.4 22 35.1l32.5 25.4c17.2 13.4 38.6 20.3 60.5 19.5c8.9-.3 17.7-1.8 26.1-4.4l33.8-10.4c16.3-5 33.8-5 50.1 0l33.8 10.4c8.4 2.6 17.2 4.1 26.1 4.4c21.9 .8 43.3-6.1 60.5-19.5l32.5-25.4c11.1-8.7 19-21.1 22-35.1l9.8-45.9c11.5-53.7-21.9-107.6-74.9-121.2l-15.6-4c-26.1-6.7-45.2-28.9-48.4-55.4L316.1 48.7C313.2 24.8 296.9 6.5 273.5 1.2zM218.4 61.3c2.4-19.9 21.6-33.8 41.3-33.8s39 13.9 41.3 33.8l9.7 82.2c8.8 74.4 71.9 130 147 149.3l15.6 4c24.6 6.3 40.1 31.4 34.8 56.2l-9.8 45.9c-1.4 6.5-5 12.3-10.2 16.3l-32.5 25.4c-9.5 7.4-21.4 11.2-33.5 10.7c-4.4-.2-8.8-.9-13.1-2.2l-33.8-10.4c-24-7.4-49.9-7.4-73.9 0l-33.8 10.4c-4.3 1.3-8.7 2-13.1 2.2c-12 .4-24-3.3-33.5-10.7l-32.5-25.4c-5.2-4-8.8-9.8-10.2-16.3l-9.8-45.9c-5.4-24.9 10.2-50 34.8-56.2l15.6-4c75.1-19.3 138.2-74.9 147-149.3l9.7-82.2z'/%3E%3C/svg%3E">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome -->
@@ -405,6 +408,7 @@
                 categories[item.category].push(item);
             });
 
+            // Quadro Amarelo de Oração Preparatória adicionado aqui no início
             let html = `
                 <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
@@ -412,6 +416,13 @@
                         <p class="text-sm text-gray-600 mt-1">Clique sobre o texto que você cometeu a falta.</p>
                     </div>
                     <button onclick="app.navigate('home')" class="text-gray-500 hover:text-gray-800 self-start sm:self-auto shrink-0"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+                </div>
+                
+                <div class="bg-yellow-50 border border-yellow-200 p-5 rounded-xl mb-8">
+                    <h3 class="font-bold text-yellow-800 mb-2">Ato de presença de Deus</h3>
+                    <p class="text-yellow-900 italic text-sm leading-relaxed">
+                        Meu Deus, dai-me luz para conhecer os pecados que hoje cometi, as suas causas e os meios de os evitar.
+                    </p>
                 </div>
             `;
 
