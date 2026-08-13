@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exame de Consciência</title>
+
+    <!-- Aplica o tema salvo o quanto antes, para evitar flash de tela clara -->
+    <script>
+        (function() {
+            try {
+                const saved = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (saved === 'dark' || (!saved && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
     
     <!-- Ícone central (Mãos em Oração) como Favicon da página -->
     <link rel="icon" type="image/png" href="exame.png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Os ícones agora são SVGs embutidos no próprio arquivo (não dependem mais de nenhum CDN de ícones) -->
     <!-- Chart.js para o Dashboard -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -19,6 +31,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f9fafb;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
         .question-card {
             transition: all 0.2s ease-in-out;
@@ -36,6 +49,94 @@
             opacity: 0;
             transition: opacity 0.2s;
         }
+
+        /* ===================== MODO NOTURNO ===================== */
+        html.dark body { background-color: #0f172a; color: #e2e8f0; }
+
+        html.dark .bg-white { background-color: #1e293b !important; }
+        html.dark .bg-gray-50 { background-color: #0f172a !important; }
+        html.dark .bg-gray-100 { background-color: #334155 !important; }
+        html.dark .bg-gray-200 { background-color: #334155 !important; }
+        html.dark .bg-gray-300 { background-color: #475569 !important; }
+        html.dark .hover\:bg-gray-50:hover { background-color: #1e293b !important; }
+        html.dark .hover\:bg-gray-100:hover { background-color: #334155 !important; }
+        html.dark .hover\:bg-gray-300:hover { background-color: #475569 !important; }
+
+        html.dark .text-gray-900 { color: #f1f5f9 !important; }
+        html.dark .text-gray-800 { color: #e2e8f0 !important; }
+        html.dark .text-gray-700 { color: #cbd5e1 !important; }
+        html.dark .text-gray-600 { color: #94a3b8 !important; }
+        html.dark .text-gray-500 { color: #94a3b8 !important; }
+        html.dark .text-gray-400 { color: #64748b !important; }
+        html.dark .hover\:text-gray-800:hover { color: #f1f5f9 !important; }
+        html.dark .hover\:text-gray-700:hover { color: #e2e8f0 !important; }
+
+        html.dark .border-gray-100 { border-color: #334155 !important; }
+        html.dark .border-gray-200 { border-color: #334155 !important; }
+        html.dark .border-gray-300 { border-color: #475569 !important; }
+
+        html.dark .bg-red-50 { background-color: rgba(153, 27, 27, 0.15) !important; }
+        html.dark .hover\:bg-red-50\/50:hover { background-color: rgba(153, 27, 27, 0.15) !important; }
+        html.dark .text-red-800 { color: #f87171 !important; }
+        html.dark .text-red-900 { color: #fca5a5 !important; }
+        html.dark .text-red-700 { color: #fca5a5 !important; }
+        html.dark .hover\:text-red-800:hover { color: #fca5a5 !important; }
+        html.dark .hover\:text-red-700:hover { color: #fca5a5 !important; }
+        html.dark .border-red-100 { border-color: rgba(153, 27, 27, 0.4) !important; }
+        html.dark .border-red-200 { border-color: rgba(153, 27, 27, 0.5) !important; }
+        html.dark .border-red-300 { border-color: rgba(153, 27, 27, 0.6) !important; }
+        html.dark .hover\:border-red-200:hover { border-color: rgba(153, 27, 27, 0.5) !important; }
+        html.dark .hover\:border-red-300:hover { border-color: rgba(153, 27, 27, 0.6) !important; }
+
+        html.dark .bg-yellow-50 { background-color: rgba(161, 98, 7, 0.15) !important; }
+        html.dark .text-yellow-800 { color: #fbbf24 !important; }
+        html.dark .text-yellow-900 { color: #fde68a !important; }
+        html.dark .border-yellow-200 { border-color: rgba(161, 98, 7, 0.4) !important; }
+
+        html.dark .bg-green-50 { background-color: rgba(21, 128, 61, 0.15) !important; }
+        html.dark .text-green-500 { color: #4ade80 !important; }
+        html.dark .text-green-700 { color: #86efac !important; }
+        html.dark .border-green-200 { border-color: rgba(21, 128, 61, 0.4) !important; }
+
+        html.dark .question-card.selected {
+            background-color: rgba(153, 27, 27, 0.2) !important;
+            border-color: #f87171 !important;
+            color: #fecaca !important;
+        }
+
+        html.dark input,
+        html.dark textarea,
+        html.dark select {
+            background-color: #1e293b !important;
+            color: #e2e8f0 !important;
+        }
+        html.dark ::placeholder { color: #64748b !important; }
+
+        .theme-toggle-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            border: 1px solid #e5e7eb;
+            color: #6b7280;
+            transition: all 0.2s ease;
+            background: transparent;
+        }
+        .theme-toggle-btn:hover {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+        html.dark .theme-toggle-btn {
+            border-color: #334155;
+            color: #cbd5e1;
+        }
+        html.dark .theme-toggle-btn:hover {
+            background-color: #334155;
+            color: #f1f5f9;
+        }
+        /* =========================================================== */
         
         /* Oculta scrollbar mas permite scroll */
         .no-scrollbar::-webkit-scrollbar {
@@ -54,6 +155,14 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Ícone de carregamento girando (substitui fa-spin) */
+        .icon-spin {
+            animation: iconSpin 1s linear infinite;
+        }
+        @keyframes iconSpin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="text-gray-800 antialiased h-screen flex flex-col">
@@ -62,12 +171,17 @@
     <header class="bg-white shadow-sm z-10 sticky top-0">
         <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2 text-red-800 font-bold text-xl cursor-pointer" onclick="app.navigate('home')">
-                <i class="fa-solid fa-cross"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;" class="inline-block align-[-0.125em] shrink-0"><path d="M12 2v20M7 7h10"/></svg>
                 <span class="hidden sm:inline">Sancta Conscientia</span>
             </div>
             
-            <div id="auth-header-section" class="flex gap-4 items-center">
-                <!-- Preenchido via JS -->
+            <div class="flex gap-3 items-center">
+                <button id="theme-toggle-btn" onclick="app.toggleDarkMode()" class="theme-toggle-btn" title="Alternar modo noturno">
+                    <span id="theme-toggle-icon"></span>
+                </button>
+                <div id="auth-header-section" class="flex gap-4 items-center">
+                    <!-- Preenchido via JS -->
+                </div>
             </div>
         </div>
     </header>
@@ -231,6 +345,38 @@
         ]
     };
 
+    // --- ÍCONES EM SVG (sem depender de nenhum CDN externo, sempre aparecem) ---
+    const ICONS = {
+        'cross': '<path d="M12 2v20M7 7h10"/>',
+        'chart-line': '<path d="M3 17l6-6 4 4 8-8M15 7h6v6"/>',
+        'book-bible': '<path d="M12 6.04A8.97 8.97 0 006 3.75c-1.05 0-2.06.18-3 .5v14.25A8.99 8.99 0 016 18c2.3 0 4.4.87 6 2.29m0-14.25A8.97 8.97 0 0118 3.75c1.05 0 2.06.18 3 .5v14.25A8.99 8.99 0 0018 18a8.97 8.97 0 00-6 2.29m0-14.25v14.25"/>',
+        'hands-praying': '<path d="M12 21c-3-2-7-5-7-10a4 4 0 014-4c1.5 0 2.5.7 3 1.8.5-1.1 1.5-1.8 3-1.8a4 4 0 014 4c0 5-4 8-7 10z"/>',
+        'sun': '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+        'moon': '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor" stroke="none"/>',
+        'church': '<path d="M12 2v3M9 5h6M6 10l6-5 6 5M7 10v11h10V10M11 21v-5h2v5"/>',
+        'arrow-left': '<path d="M19 12H5M12 19l-7-7 7-7"/>',
+        'arrow-right': '<path d="M5 12h14M12 5l7 7-7 7"/>',
+        'chevron-left': '<path d="M15 18l-6-6 6-6"/>',
+        'chevron-right': '<path d="M9 18l6-6-6-6"/>',
+        'caret-right': '<path d="M8 5l8 7-8 7V5z" fill="currentColor" stroke="none"/>',
+        'check': '<path d="M5 13l4 4L19 7"/>',
+        'check-circle': '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
+        'circle-check': '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
+        'check-double': '<path d="M2 12l4 4L14 8M8 12l4 4L22 6"/>',
+        'plus': '<path d="M12 5v14M5 12h14"/>',
+        'trash-can': '<path d="M4 7h16M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-8 0v13a2 2 0 002 2h6a2 2 0 002-2V7M10 11v6M14 11v6"/>',
+        'pen': '<path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/>',
+        'copy': '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/>',
+        'user-lock': '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/>',
+        'circle-notch': '<circle cx="12" cy="12" r="9" opacity="0.25"/><path d="M21 12a9 9 0 00-9-9"/>'
+    };
+
+    function icon(name, cls = '') {
+        const content = ICONS[name] || '';
+        const spin = name === 'circle-notch' ? ' icon-spin' : '';
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;" class="inline-block align-[-0.125em] shrink-0${spin} ${cls}">${content}</svg>`;
+    }
+
     class App {
         constructor() {
             this.user = null;
@@ -249,9 +395,11 @@
             this.confTrendChart = null;
             this.currentCalMonth = new Date().getMonth();
             this.currentCalYear = new Date().getFullYear();
+            this.editingSinId = null; // id do pecado personalizado em edição no momento
         }
 
         async init() {
+            this.updateThemeIcon();
             this.renderHeaderAuth();
             this.navigate('home');
 
@@ -316,6 +464,22 @@
             else if (view === 'confessions') this.renderConfessionsView(container);
         }
 
+        toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            try {
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            } catch (e) {}
+            this.updateThemeIcon();
+        }
+
+        updateThemeIcon() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const iconEl = document.getElementById('theme-toggle-icon');
+            if (iconEl) {
+                iconEl.innerHTML = icon(isDark ? 'sun' : 'moon', 'text-sm');
+            }
+        }
+
         showAlert(title, message) {
             document.getElementById('alert-title').innerText = title;
             document.getElementById('alert-message').innerText = message;
@@ -342,11 +506,11 @@
             const section = document.getElementById('auth-header-section');
             if (!this.isAnonymous && this.user) {
                 section.innerHTML = `
-                    <button onclick="app.navigate('dashboard')" class="text-sm font-semibold text-gray-700 hover:text-red-800 hidden sm:block"><i class="fa-solid fa-chart-line mr-1"></i> Dashboard</button>
-                    <button onclick="app.navigate('dashboard')" class="text-sm font-semibold text-gray-700 hover:text-red-800 sm:hidden"><i class="fa-solid fa-chart-line"></i></button>
+                    <button onclick="app.navigate('dashboard')" class="text-sm font-semibold text-gray-700 hover:text-red-800 hidden sm:block">${icon('chart-line', 'mr-1')} Dashboard</button>
+                    <button onclick="app.navigate('dashboard')" class="text-sm font-semibold text-gray-700 hover:text-red-800 sm:hidden">${icon('chart-line')}</button>
                     
-                    <button onclick="app.navigate('confessions')" class="text-sm font-semibold text-gray-700 hover:text-red-800 hidden sm:block"><i class="fa-solid fa-book-bible mr-1"></i> Confissões</button>
-                    <button onclick="app.navigate('confessions')" class="text-sm font-semibold text-gray-700 hover:text-red-800 sm:hidden"><i class="fa-solid fa-book-bible"></i></button>
+                    <button onclick="app.navigate('confessions')" class="text-sm font-semibold text-gray-700 hover:text-red-800 hidden sm:block">${icon('book-bible', 'mr-1')} Confissões</button>
+                    <button onclick="app.navigate('confessions')" class="text-sm font-semibold text-gray-700 hover:text-red-800 sm:hidden">${icon('book-bible')}</button>
                     
                     <button onclick="app.logout()" class="text-sm px-3 py-1 bg-gray-200 rounded-lg hover:bg-gray-300 transition text-gray-800">Sair</button>
                 `;
@@ -362,7 +526,7 @@
             
             container.innerHTML = `
                 <div class="text-center py-10 animate-fade-in">
-                    <i class="fa-solid fa-hands-praying text-5xl text-red-800 mb-6"></i>
+                    ${icon('hands-praying', 'text-5xl text-red-800 mb-6')}
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">Exame de Consciência</h1>
                     <p class="text-gray-600 mb-10 max-w-lg mx-auto italic leading-relaxed px-4">
                         ${randomQuote}
@@ -371,7 +535,7 @@
                     <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto px-4">
                         <div onclick="app.navigate('exam', {type: 'diario'})" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-red-200 cursor-pointer transition flex flex-col items-center group">
                             <div class="w-16 h-16 bg-red-50 text-red-800 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                                <i class="fa-regular fa-sun"></i>
+                                ${icon('sun')}
                             </div>
                             <h2 class="text-xl font-bold text-gray-800 mb-2">Exame Diário</h2>
                             <p class="text-sm text-gray-500 text-center">Reflexão rápida sobre o dia para o crescimento nas virtudes e purificação.</p>
@@ -379,7 +543,7 @@
                         
                         <div onclick="app.navigate('exam', {type: 'confissao'})" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-red-200 cursor-pointer transition flex flex-col items-center group">
                             <div class="w-16 h-16 bg-red-50 text-red-800 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-church"></i>
+                                ${icon('church')}
                             </div>
                             <h2 class="text-xl font-bold text-gray-800 mb-2">Para Confissão</h2>
                             <p class="text-sm text-gray-500 text-center">Exame profundo e detalhado baseado nos Mandamentos para o Sacramento.</p>
@@ -414,7 +578,7 @@
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900">${title}</h2>
                     </div>
-                    <button onclick="app.navigate('home')" class="text-gray-500 hover:text-gray-800 self-start sm:self-auto shrink-0"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+                    <button onclick="app.navigate('home')" class="text-gray-500 hover:text-gray-800 self-start sm:self-auto shrink-0">${icon('arrow-left')} Voltar</button>
                 </div>
                 
                 <div class="bg-yellow-50 border border-yellow-200 p-5 rounded-xl mb-8">
@@ -430,7 +594,7 @@
                 html += `
                     <div class="mb-8">
                     <h3 class="text-lg font-bold text-red-900 mb-3 pb-2 border-b border-red-100 flex items-center gap-2">
-                        <i class="fa-solid fa-caret-right text-sm"></i> ${cat}
+                        ${icon('caret-right', 'text-sm')} ${cat}
                     </h3>
                     <div class="space-y-2">
             `;
@@ -438,17 +602,36 @@
             questions.forEach(q => {
                 const isSelected = this.selectedSins.has(q.id);
                 const selectedClass = isSelected ? 'selected' : '';
-                
-                html += `
-                    <div id="card-${q.id}" onclick="app.toggleSin('${q.id}')" 
-                         class="question-card ${selectedClass} p-3 sm:p-4 rounded-xl border border-gray-200 bg-white cursor-pointer hover:border-red-300 flex gap-3 items-start shadow-sm">
-                        <div class="relative w-5 h-5 flex-shrink-0 mt-[2px]">
-                            <i class="fa-solid fa-circle-check check-icon text-[20px] leading-none text-red-500 absolute inset-0 flex items-center justify-center transition-opacity duration-200 ${isSelected ? 'opacity-100' : 'opacity-0'}"></i>
-                            <div class="w-5 h-5 rounded-full border-2 border-gray-300 absolute inset-0 transition-opacity duration-200 check-placeholder ${isSelected ? 'opacity-0' : 'opacity-100'}"></div>
+                const isCustom = !!q.user_id; // só itens adicionados pelo usuário podem ser editados/excluídos
+                const isEditingThis = isCustom && this.editingSinId === q.id;
+
+                if (isEditingThis) {
+                    html += `
+                        <div id="card-${q.id}" class="p-3 sm:p-4 rounded-xl border border-red-200 bg-red-50/40 shadow-sm space-y-3">
+                            <textarea id="edit-input-${q.id}" rows="2" class="w-full text-sm sm:text-base p-2.5 rounded-lg border border-gray-200 bg-white focus:outline-none focus:border-red-300 focus:ring-1 focus:ring-red-300 resize-none">${q.sin}</textarea>
+                            <div class="flex justify-end gap-2">
+                                <button onclick="app.cancelEditSin()" class="text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-100 transition">Cancelar</button>
+                                <button onclick="app.deleteCustomSin('${q.id}')" class="text-xs font-medium px-3 py-1.5 rounded-lg bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 transition">${icon('trash-can', 'mr-1')}Excluir</button>
+                                <button onclick="app.saveEditSin('${q.id}')" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-red-800 text-white hover:bg-red-900 transition">${icon('check', 'mr-1')}Salvar</button>
+                            </div>
                         </div>
-                        <span class="text-[15px] sm:text-base leading-snug select-none">${q.q}</span>
-                    </div>
-                `;
+                    `;
+                } else {
+                    html += `
+                        <div id="card-${q.id}" onclick="app.toggleSin('${q.id}')" 
+                             class="question-card ${selectedClass} p-3 sm:p-4 rounded-xl border border-gray-200 bg-white cursor-pointer hover:border-red-300 flex gap-3 items-start shadow-sm">
+                            <div class="relative w-5 h-5 flex-shrink-0 mt-[2px]">
+                                ${icon('circle-check', `check-icon text-[20px] leading-none text-red-500 absolute inset-0 flex items-center justify-center transition-opacity duration-200 ${isSelected ? 'opacity-100' : 'opacity-0'}`)}
+                                <div class="w-5 h-5 rounded-full border-2 border-gray-300 absolute inset-0 transition-opacity duration-200 check-placeholder ${isSelected ? 'opacity-0' : 'opacity-100'}"></div>
+                            </div>
+                            <span class="text-[15px] sm:text-base leading-snug select-none flex-1">${q.q}</span>
+                            ${isCustom ? `
+                            <button onclick="event.stopPropagation(); app.startEditSin('${q.id}')" title="Editar" class="w-7 h-7 shrink-0 flex items-center justify-center rounded-lg border border-gray-100 text-gray-300 hover:text-gray-500 hover:border-gray-300 hover:bg-gray-50 transition-colors">
+                                ${icon('pen', 'text-[11px]')}
+                            </button>` : ''}
+                        </div>
+                    `;
+                }
             });
 
             // Campo para inserir novo pecado (apenas logados)
@@ -457,7 +640,7 @@
                     html += `
                         <div class="mt-3 flex gap-2 items-center bg-gray-50 p-2 rounded-xl border border-gray-100">
                             <input type="text" id="${safeCatId}" placeholder="Adicionar novo..." class="text-sm px-3 py-2 border border-gray-200 rounded-lg flex-1 focus:outline-none focus:border-red-300 focus:ring-1 focus:ring-red-300 bg-white">
-                            <button onclick="app.addCustomSin('${cat}', '${type}', '${safeCatId}')" class="text-xs font-semibold bg-white border border-gray-200 hover:bg-gray-100 text-gray-700 px-3 py-2 rounded-lg transition shrink-0 shadow-sm"><i class="fa-solid fa-plus"></i> Inserir novo</button>
+                            <button onclick="app.addCustomSin('${cat}', '${type}', '${safeCatId}')" class="text-xs font-semibold bg-white border border-gray-200 hover:bg-gray-100 text-gray-700 px-3 py-2 rounded-lg transition shrink-0 shadow-sm">${icon('plus')} Inserir novo</button>
                         </div>
                     `;
                 }
@@ -472,7 +655,7 @@
                         <span class="text-sm text-gray-500 font-medium hidden sm:inline">Reflexão em andamento...</span>
                         <span class="text-sm text-gray-500 font-medium sm:hidden"></span>
                         <button onclick="app.navigate('result')" class="bg-red-800 text-white px-6 py-2.5 rounded-lg hover:bg-red-900 shadow-md font-bold transition flex items-center gap-2">
-                            Concluir exame <i class="fa-solid fa-arrow-right"></i>
+                            Concluir exame ${icon('arrow-right')}
                         </button>
                     </div>
                 </div>
@@ -523,11 +706,73 @@
             }
         }
 
+        startEditSin(id) {
+            this.editingSinId = id;
+            // isEditing:true evita que a seleção do exame em andamento seja apagada
+            this.navigate('exam', { type: this.currentExamType, isEditing: true });
+        }
+
+        cancelEditSin() {
+            this.editingSinId = null;
+            this.navigate('exam', { type: this.currentExamType, isEditing: true });
+        }
+
+        async saveEditSin(id) {
+            const inputEl = document.getElementById(`edit-input-${id}`);
+            const newText = inputEl.value.trim();
+            if (!newText) {
+                this.showAlert("Aviso", "O texto não pode ficar vazio.");
+                return;
+            }
+
+            try {
+                const { error } = await supabase
+                    .from('custom_sins')
+                    .update({ q: newText, sin: newText })
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                const idx = this.customSinsData.findIndex(s => s.id === id);
+                if (idx !== -1) {
+                    this.customSinsData[idx].q = newText;
+                    this.customSinsData[idx].sin = newText;
+                }
+
+                this.editingSinId = null;
+                this.navigate('exam', { type: this.currentExamType, isEditing: true });
+
+            } catch (error) {
+                console.error("Erro ao salvar edição:", error);
+                this.showAlert("Erro", "Não foi possível salvar a alteração.");
+            }
+        }
+
+        async deleteCustomSin(id) {
+            try {
+                const { error } = await supabase
+                    .from('custom_sins')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                this.customSinsData = this.customSinsData.filter(s => s.id !== id);
+                this.selectedSins.delete(id);
+                this.editingSinId = null;
+                this.navigate('exam', { type: this.currentExamType, isEditing: true });
+
+            } catch (error) {
+                console.error("Erro ao excluir item:", error);
+                this.showAlert("Erro", "Não foi possível excluir o item.");
+            }
+        }
+
         renderResultView(container) {
             if (this.selectedSins.size === 0) {
                 container.innerHTML = `
                     <div class="text-center py-20">
-                        <i class="fa-solid fa-check-double text-5xl text-green-500 mb-4"></i>
+                        ${icon('check-double', 'text-5xl text-green-500 mb-4')}
                         <h2 class="text-2xl font-bold text-gray-800">Nenhuma falta marcada</h2>
                         <p class="text-gray-500 mt-2">Você não selecionou nenhum ponto durante o exame.</p>
                         <button onclick="app.navigate('exam', {type: app.currentExamType})" class="mt-6 text-red-800 underline">Voltar ao exame</button>
@@ -554,7 +799,7 @@
                 </div>
                 
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-8 relative">
-                    <button onclick="app.copyList()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 p-2 bg-gray-50 rounded-lg border border-gray-100" title="Copiar texto"><i class="fa-regular fa-copy text-xl"></i></button>
+                    <button onclick="app.copyList()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 p-2 bg-gray-50 rounded-lg border border-gray-100" title="Copiar texto">${icon('copy', 'text-xl')}</button>
                     
                     <ul class="list-disc pl-5 space-y-2 text-gray-800 text-[15px] sm:text-base mt-8 sm:mt-0" id="final-sins-list">
             `;
@@ -601,7 +846,7 @@
                 html += `
                     <div class="text-center w-full animate-fade-in">
                         <p class="text-sm text-green-700 font-bold flex items-center justify-center gap-2 mb-4 bg-green-50 py-2.5 rounded-lg border border-green-200 max-w-xs mx-auto shadow-sm">
-                            <i class="fa-solid fa-check-circle text-lg"></i> Exame salvo.
+                            ${icon('check-circle', 'text-lg')} Exame salvo.
                         </p>
                         <button onclick="app.navigate('dashboard')" class="text-gray-500 hover:text-gray-800 font-medium underline text-sm transition">Ir para o Dashboard</button>
                     </div>
@@ -706,7 +951,7 @@
             container.innerHTML = `
                 <div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow border border-gray-100 mt-10 mx-4">
                     <div class="text-center mb-6">
-                        <i class="fa-solid fa-user-lock text-3xl text-red-800 mb-2"></i>
+                        ${icon('user-lock', 'text-3xl text-red-800 mb-2')}
                         <h2 class="text-2xl font-bold text-gray-900">Acesso Restrito</h2>
                         <p class="text-sm text-gray-500 mt-1">Faça login para salvar seus exames, ver seu dashboard e adicionar pecados personalizados.</p>
                     </div>
@@ -744,7 +989,7 @@
             }
 
             btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Processando...`;
+            btn.innerHTML = `${icon('circle-notch')} Processando...`;
 
             try {
                 const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -792,7 +1037,7 @@
                         <h2 class="text-2xl font-bold text-gray-900">Histórico de Confissões</h2>
                         <p class="text-sm text-gray-600 mt-1">Mantenha o registro de suas confissões.</p>
                     </div>
-                    <button onclick="app.navigate('home')" class="text-gray-500 hover:text-gray-800 self-start sm:self-auto"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+                    <button onclick="app.navigate('home')" class="text-gray-500 hover:text-gray-800 self-start sm:self-auto">${icon('arrow-left')} Voltar</button>
                 </div>
 
                 <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200">
@@ -816,10 +1061,10 @@
                     html += `
                         <div class="flex justify-between items-center p-3 border border-gray-100 rounded-lg hover:bg-gray-50 bg-white">
                             <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-cross text-red-800"></i>
+                                ${icon('cross', 'text-red-800')}
                                 <span class="font-medium text-gray-800 text-sm sm:text-base">Realizada em: ${dateStr}</span>
                             </div>
-                            <button onclick="app.deleteConfession('${conf.id}')" class="text-red-400 hover:text-red-700 p-2" title="Apagar"><i class="fa-solid fa-trash-can"></i></button>
+                            <button onclick="app.deleteConfession('${conf.id}')" class="text-red-400 hover:text-red-700 p-2" title="Apagar">${icon('trash-can')}</button>
                         </div>
                     `;
                 });
@@ -884,7 +1129,7 @@
                         <h2 class="text-2xl font-bold text-gray-900">Dashboard</h2>
                         <p class="text-sm text-gray-600 mt-1">Acompanhe suas estatísticas e frequência de exames.</p>
                     </div>
-                    <button onclick="app.navigate('home')" class="text-gray-500 hover:text-gray-800 self-start sm:self-auto"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+                    <button onclick="app.navigate('home')" class="text-gray-500 hover:text-gray-800 self-start sm:self-auto">${icon('arrow-left')} Voltar</button>
                 </div>
 
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-6 flex flex-col sm:flex-row gap-4 sm:items-end">
@@ -928,9 +1173,9 @@
                                 <div class="flex items-center gap-2">
                                     <span>Calendário</span>
                                     <div class="flex items-center gap-1 bg-gray-100 rounded px-1 py-0.5">
-                                        <button onclick="app.prevCalendarMonth()" class="px-1 hover:text-red-800 transition-colors"><i class="fa-solid fa-chevron-left text-[10px]"></i></button>
+                                        <button onclick="app.prevCalendarMonth()" class="px-1 hover:text-red-800 transition-colors">${icon('chevron-left', 'text-[10px]')}</button>
                                         <span id="calendar-month-label" class="w-16 text-center font-bold text-gray-700 text-[11px]">Mês</span>
-                                        <button onclick="app.nextCalendarMonth()" class="px-1 hover:text-red-800 transition-colors"><i class="fa-solid fa-chevron-right text-[10px]"></i></button>
+                                        <button onclick="app.nextCalendarMonth()" class="px-1 hover:text-red-800 transition-colors">${icon('chevron-right', 'text-[10px]')}</button>
                                     </div>
                                 </div>
                                 <div class="flex gap-2">
